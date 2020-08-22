@@ -1,8 +1,8 @@
 package main
 
-import "fmt"
+import "github.com/Vallerious/http_server/socket"
 
 func main() {
-    fmt.Println("Hello, World!")
+    socket.Listen("tcp", 8080)    
 }
 
