@@ -19,12 +19,17 @@ func HandleConnection(c net.Conn) error {
 
     log.Printf("Incoming request on path: %s and method: %s\n", req.URL, req.Method)
     
-    b, _ := handlers.FileHandler(req)
+    b, err := handlers.FileHandler(req)
+    data := string(b)
 
-    log.Println(string(b))
+    if err != nil {
+        data = err.Error()
+    }
+
+    log.Println(data)
 
     writer := bufio.NewWriter(c)
-    writer.WriteString(string(b))
+    writer.WriteString(data)
     writer.Flush()
     c.Close()
 

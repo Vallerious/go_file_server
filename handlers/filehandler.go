@@ -20,7 +20,11 @@ func FileHandler(req* http.Request) ([]byte, error) {
     url := req.URL.String()
     path := filepath.Join(wd, "public", url)
     log.Println(path)
-    byteFileData, _ := ioutil.ReadFile(path)
+    byteFileData, err := ioutil.ReadFile(path)
+
+    if err != nil {
+        return nil, errors.New("page not found")
+    }
     
     return byteFileData, nil
 }
