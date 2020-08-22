@@ -5,6 +5,7 @@ import (
     "log"
     "bufio"
     "net/http"
+    "github.com/Vallerious/http_server/handlers"
 )
 
 func HandleConnection(c net.Conn) error {
@@ -18,6 +19,10 @@ func HandleConnection(c net.Conn) error {
 
     log.Printf("Incoming request on path: %s and method: %s", req.URL, req.Method)
     
+    b, _ := handlers.FileHandler(req)
+
+    log.Println(string(b))
+
     c.Close()
 
     return nil
