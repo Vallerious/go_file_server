@@ -10,6 +10,7 @@ import (
 
 func HandleConnection(c net.Conn) error {
     log.Println("received connection")
+    defer c.Close()
     reader := bufio.NewReader(c)
     req, err := http.ReadRequest(reader)
     
@@ -31,7 +32,6 @@ func HandleConnection(c net.Conn) error {
     writer := bufio.NewWriter(c)
     writer.WriteString(data)
     writer.Flush()
-    c.Close()
 
     return nil
 }
